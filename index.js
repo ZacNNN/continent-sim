@@ -19,13 +19,10 @@ let map_tile = {
 async function drawMap(){
     console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
 
-    for (let i = 0; i < config.Xsize; i++) {
-        const Y = [];
-        for (let j = 0; j < config.Ysize; j++) {
-          Y.push(map_tile);
-        }
-        map.push(Y);
-      }
+    map = Array(config.Xsize)
+    .fill()
+    .map(() => Array(config.Ysize).fill(' '));
+    
     console.log('Completed drawing ' + (map.length * map[0].length) + ' tiles');
 }
 
@@ -39,18 +36,20 @@ function generate_countries(){
 
             let xcord = Math.floor(Math.random() * config.Xsize);
             let ycord = Math.floor(Math.random() * config.Ysize);
-            
-            if (!map[xcord][ycord].country == ' '){
-                console.log('land occupied')
-            }else{
-              
-                map[xcord][ycord].country = Name;
 
-                countries[i] = {
-                    name: Name,
-                    xcord: xcord,
-                    ycord: ycord,
-                }
+
+
+            if (map[xcord][ycord] == ' '){
+
+               map[xcord][ycord] = Name;
+
+               countries[i] = {
+                   name: Name,
+                   xcord: xcord,
+                   ycord: ycord,
+               }
+            }else{
+                i = i-1
             }
 
             console.log('loop done')
