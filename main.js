@@ -5,23 +5,24 @@ let map = [
 ];
 
 let Resources = {
-    gold: 5,
-    Iron: 5,
+    Ore: 5,
+    Fauna: 5,
 }
 let map_tile = {
     country: ' ',
     Terrain: ' ',
     Resources: Resources,
+    index: -1
 }
 
 
 
-async function drawMap(){
+function drawMap(){
     console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
 
     map = Array(config.Xsize)
     .fill()
-    .map(() => Array(config.Ysize).fill(' '));
+    .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
     
     console.log('Completed drawing ' + (map.length * map[0].length) + ' tiles');
 }
@@ -38,24 +39,29 @@ function generate_countries(){
             let ycord = Math.floor(Math.random() * config.Ysize);
 
 
+            if (map[xcord][ycord].country == ' '){
 
-            if (map[xcord][ycord] == ' '){
+                map[xcord][ycord].country = Name;
+                map[xcord][ycord].index = i;
 
-               map[xcord][ycord] = Name;
-
-               countries[i] = {
-                   name: Name,
-                   xcord: xcord,
-                   ycord: ycord,
-               }
+                countries[i] = {
+                    name: Name,
+                    xcord: xcord,
+                    ycord: ycord,
+                }
+                console.log('The country of ' + Name);
+                console.log('At ' + xcord + ' ' + ycord);
+                console.log('________________________________________');
             }else{
+
                 i = i-1
             }
 
-            console.log('loop done')
+            
 
 
         }
+        console.log('Finished Writing Countries');
     }else{
         
         console.log('WARNING! Cant fit countries into map: Please decrease country count or increase map size')
@@ -66,7 +72,7 @@ function generate_countries(){
 
 
 
-await drawMap();
+drawMap();
 generate_countries();
 
 if (config.debuging_mode){
