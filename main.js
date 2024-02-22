@@ -17,7 +17,7 @@ let map_tile = {
 
 
 
-function drawMap(){
+function GenerateMap(){
     console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
 
     map = Array(config.Xsize)
@@ -33,10 +33,16 @@ function generate_countries(){
             let noun = config.country_nouns[Math.floor(Math.random() * config.country_nouns.length)];
             let adjectives = config.country_adjectives[Math.floor(Math.random() * config.country_adjectives.length)];
             let Name = adjectives + ' ' + noun;
-            
+            let goverement;
 
             let xcord = Math.floor(Math.random() * config.Xsize);
             let ycord = Math.floor(Math.random() * config.Ysize);
+
+            if(Math.floor(Math.random()* 2) == 1){
+                 goverement = 'Democracy';
+            }else{
+                 goverement = 'Facism';
+            }
 
 
             if (map[xcord][ycord].country == ' '){
@@ -46,10 +52,11 @@ function generate_countries(){
 
                 countries[i] = {
                     name: Name,
+                    goverement: goverement,
                     xcord: xcord,
                     ycord: ycord,
                 }
-                console.log('The country of ' + Name);
+                console.log('The country of ' + Name + ' that is under ' + goverement);
                 console.log('At ' + xcord + ' ' + ycord);
                 console.log('________________________________________');
             }else{
@@ -70,13 +77,40 @@ function generate_countries(){
 
 }
 
+function WriteGrid(){
+    const grid = document.querySelector('.grid');
+
+    grid.style.setProperty('--rows', map[0].length);
+    grid.style.setProperty('--columns', map.length);
+    grid.style.setProperty('--Height',  (map.length* config.mapZoom) + 'px');
+    grid.style.setProperty('--Width', (map[0].length * config.mapZoom) + 'px');
+
+    for (let i = 0; i < map.length; i++) {
+     for (let j = 0; j < map[i].length; j++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.textContent = map[i][j].country;
+      grid.appendChild(cell);
+  }
+}
+}
 
 
-drawMap();
+function doNothing(){
+    //does nothing
+}
+
+
+
+
+GenerateMap();
 generate_countries();
+doNothing();
 
 if (config.debuging_mode){
     console.log('Debuging is Active:');
     console.log(map);
     console.log(countries);
 }
+
+export {WriteGrid}

@@ -24,10 +24,11 @@ const country_adjectives = [
     "Twin", "Noble", "Merry", "Sunny", "Cross"
   ]
 
-const country_count = 99;
+const country_count = 20;
 
-const Xsize = 10;
+const Xsize = 50;
 const Ysize = 10;
-const debuging_mode = true;
+const mapZoom = 60; //45 is recomended
+const debuging_mode = false;
 
-export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode};
+export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, mapZoom};
