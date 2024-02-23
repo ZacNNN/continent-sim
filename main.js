@@ -1,8 +1,10 @@
 import * as config from './config.js';
-let countries = {};
-let map = [
+config.Refresh()
+let countries = {
 
-];
+};
+        //hello chrome
+let map = {};
 
 let Resources = {
     Ore: 5,
@@ -53,8 +55,10 @@ function generate_countries(){
                 countries[i] = {
                     name: Name,
                     goverement: goverement,
-                    xcord: xcord,
-                    ycord: ycord,
+                    cord: [
+                        xcord + ' ' + ycord
+                    ]
+                        
                 }
                 console.log('The country of ' + Name + ' that is under ' + goverement);
                 console.log('At ' + xcord + ' ' + ycord);
@@ -79,15 +83,21 @@ function generate_countries(){
 
 function WriteGrid(){
     const grid = document.querySelector('.grid');
+    const calcaulatedFontSize = (config.mapZoom * 0.2085)
 
     grid.style.setProperty('--rows', map[0].length);
     grid.style.setProperty('--columns', map.length);
     grid.style.setProperty('--Height',  (map.length* config.mapZoom) + 'px');
     grid.style.setProperty('--Width', (map[0].length * config.mapZoom) + 'px');
 
+
     for (let i = 0; i < map.length; i++) {
      for (let j = 0; j < map[i].length; j++) {
       const cell = document.createElement('div');
+
+ 
+
+      cell.style.fontSize = calcaulatedFontSize + 'px';
       cell.classList.add('cell');
       cell.textContent = map[i][j].country;
       grid.appendChild(cell);
@@ -109,7 +119,9 @@ doNothing();
 
 if (config.debuging_mode){
     console.log('Debuging is Active:');
-    console.log(map);
+    console.log('2d');
+    console.log( map);
+    console.log('country list');
     console.log(countries);
 }
 
