@@ -1,9 +1,9 @@
 import * as config from './config.js';
 import * as CountryActivity from './countryActivity.js';
 
-let countries = {
+let countries = [
 
-};
+];
 
 let map = {};
 
@@ -30,7 +30,7 @@ function GenerateMap(){
 
 }
 
-function generate_countries(){
+async function generate_countries(){
     if (config.country_count <= (map.length * map[0].length)){
         for (let i = 0; i < config.country_count; i++) {
            
@@ -78,6 +78,7 @@ function generate_countries(){
 
         }
         console.log('Finished Writing Countries');
+
     }else{
         
         console.log('WARNING! Cant fit countries into map: Please decrease country count or increase map size')
@@ -109,6 +110,12 @@ function WriteGrid(){
             grid.appendChild(cell);
         }
     }
+    const info = document.querySelector('.info-text');
+    let infoText = 'Info:';
+    for (let i = 0; i < countries.length; i++) {
+        info.textContent = `/n${countries[i].name}`;
+    }
+    info.textContent = infoText;
 }
 
 function doNothing(){
@@ -119,7 +126,7 @@ function doNothing(){
 
 
 GenerateMap();
-generate_countries();
+await generate_countries();
 doNothing();
 CountryActivity.BeginActivity();
 

@@ -28,7 +28,7 @@
       "Twin", "Noble", "Merry", "Sunny", "Cross", "Big", " ", " ", " "
     ]
 
-  const country_count = 1;
+  const country_count = 10;
 
   const Xsize =15;
   const Ysize = 15;

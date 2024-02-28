@@ -3,22 +3,26 @@ import * as config from "./config.js";
 
 
 function Update() {
-    for (let i = 0; i < main.countries.length; i++){
-        if (Math.floor(Math.random() *2 )=2){
-            main.countries[i].Population = main.countries[i].Population + Math.floor(Math.random() * 10)        
-            
-        }else{
-            console.log('The country of ' + main.countries[i].name + ' is now at ' + main.countries[i].Population);
-            console.log('________________________________________');
-        }
-    }
-        
+    ChangePopulation();
 
-    
+}
+
+function ChangePopulation(){
+    for (let i = 0; i < main.countries.length; i++) {
+  
+        const populationChange = (Math.random()* 0.08) + 0.98
+
+        main.countries[i].Population = Math.floor(main.countries[i].Population * populationChange);
+        console.log('The country of ' + main.countries[i].name + ' is now at ' + main.countries[i].Population + ' people' );
+        console.log('________________________________________');  
+    }
 }
 
 function BeginActivity(){
-    const _Update = setInterval(Update(), config.SimulationSpeed * 1000);
+
+    const update = setInterval(() => Update(), 2000);
+    console.log(main.countries.length);
+
 }
 
 export {BeginActivity}
