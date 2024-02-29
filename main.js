@@ -110,13 +110,35 @@ function WriteGrid(){
             grid.appendChild(cell);
         }
     }
-    const info = document.querySelector('.info-text');
-    let infoText = 'Info:';
+    const container = document.body.querySelector('.info-text');
+
+    container.innerHTML = '';
+  
     for (let i = 0; i < countries.length; i++) {
-        info.textContent = `/n${countries[i].name}`;
-    }
-    info.textContent = infoText;
+      const line = document.createElement('div');
+      line.textContent = `${countries[i].name}: ${countries[i].Population}`;
+      line.classList.add('line'); // Add a class for styling
+  
+      // Append the line to the container
+      container.appendChild(line);
+    };
 }
+function UpdateScreen() {
+
+
+    const container = document.body.querySelector('.info-text');
+
+    container.innerHTML = '';
+    for (let i = 0; i < countries.length; i++) {
+        const line = document.createElement('div');
+        line.textContent = `${countries[i].name}: ${countries[i].Population}`;
+        line.classList.add('line'); // Add a class for styling
+    
+        // Append the line to the container
+        container.appendChild(line);
+      };
+}
+
 
 function doNothing(){
     //does nothing
@@ -138,4 +160,4 @@ if (config.debuging_mode){
     console.log(countries);
 }
 
-export {WriteGrid, map, countries}
+export {WriteGrid, map, countries, UpdateScreen}

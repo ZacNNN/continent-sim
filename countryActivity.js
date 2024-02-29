@@ -3,24 +3,26 @@ import * as config from "./config.js";
 
 
 function Update() {
-    ChangePopulation();
+    UpdatePopulation();
 
 }
 
-function ChangePopulation(){
+function UpdatePopulation(){
     for (let i = 0; i < main.countries.length; i++) {
   
-        const populationChange = (Math.random()* 0.08) + 0.98
+        const populationChange = (Math.random()* 0.008) + 0.998
 
         main.countries[i].Population = Math.floor(main.countries[i].Population * populationChange);
         console.log('The country of ' + main.countries[i].name + ' is now at ' + main.countries[i].Population + ' people' );
         console.log('________________________________________');  
     }
+    main.UpdateScreen()
+
 }
 
 function BeginActivity(){
 
-    const update = setInterval(() => Update(), 2000);
+    const update = setInterval(() => Update(), 4000);
     console.log(main.countries.length);
 
 }

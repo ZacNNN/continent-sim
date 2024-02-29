@@ -28,11 +28,11 @@
       "Twin", "Noble", "Merry", "Sunny", "Cross", "Big", " ", " ", " "
     ]
 
-  const country_count = 10;
+  const country_count = 500;
 
-  const Xsize =15;
-  const Ysize = 15;
-  const mapZoom = 50; //50 is recomended
+  const Xsize =100;
+  const Ysize = 100;
+  const mapZoom = 70; //50 is recomended
   const debuging_mode = true;
   const SimulationSpeed = 2;
   
