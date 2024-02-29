@@ -21,7 +21,7 @@ let map_tile = {
 
 
 function GenerateMap(){
-    //console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
+    console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
 
     map = Array(config.Xsize)
     .fill()
@@ -117,9 +117,9 @@ function WriteGrid(){
     for (let i = 0; i < countries.length; i++) {
       const line = document.createElement('div');
       line.textContent = `${countries[i].name}: ${countries[i].Population}`;
-      line.classList.add('line'); // Add a class for styling
+      line.classList.add('line'); 
   
-      // Append the line to the container
+
       container.appendChild(line);
     };
 }
@@ -132,9 +132,9 @@ function UpdateScreen() {
     for (let i = 0; i < countries.length; i++) {
         const line = document.createElement('div');
         line.textContent = `${countries[i].name}: ${countries[i].Population}`;
-        line.classList.add('line'); // Add a class for styling
+        line.classList.add('line');
     
-        // Append the line to the container
+
         container.appendChild(line);
       };
 }

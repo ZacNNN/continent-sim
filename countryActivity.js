@@ -22,7 +22,7 @@ function UpdatePopulation(){
 
 function BeginActivity(){
 
-    const update = setInterval(() => Update(), 4000);
+    const update = setInterval(() => Update(), config.SimulationSpeed * 1000);
     console.log(main.countries.length);
 
 }
