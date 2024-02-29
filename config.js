@@ -28,13 +28,13 @@
       "Twin", "Noble", "Merry", "Sunny", "Cross", "Big", " ", " ", " "
     ]
 
-  const country_count = 500;
+  const country_count = 200;
 
   const Xsize =100;
   const Ysize = 100;
-  const mapZoom = 70; //50 is recomended
-  const debuging_mode = true;
-  const SimulationSpeed = 2;
+  const mapZoom = 50; //50 is recomended
+  const debuging_mode = false;
+  const SimulationSpeed = 1;
   
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, mapZoom, SimulationSpeed };

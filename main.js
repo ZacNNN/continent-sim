@@ -101,8 +101,9 @@ function WriteGrid(){
             const cell = document.createElement('div');
 
             map[j][i].Resources.basic = Math.floor(Math.random() * -100);
-            cell.style.backgroundColor = `rgb(225, 225, ${map[j][i].Resources.basic + 225})`;
-
+            if (config.debuging_mode){
+                cell.style.backgroundColor = `rgb(225, 225, ${map[j][i].Resources.basic + 225})`;
+            }
 
             cell.style.fontSize = calculatedFontSize + 'px';
             cell.classList.add('cell');
