@@ -6,15 +6,26 @@ let countries = [
 ];
 
 let map = {};
+let CountryResources = {
+    developer: 0,
+    Food: 0,
+    Materials: 0,
+    AdvMaterials: 0,
+}
 
-let Resources = {
-        basic: 0,
+let MapResources = {
+        developer: 0,
+        BasicOre: 0,
+        AdvancedOre: 0,
+        PlantMat: 0,
+        LiveStock: 0,
+    
 
 }
 let map_tile = {
     country: ' ',
     Terrain: ' ',
-    Resources: Resources,
+    Resources: MapResources,
     index: -1
 }
 
@@ -38,33 +49,45 @@ async function generate_countries(){
             let noun = config.country_nouns[Math.floor(Math.random() * config.country_nouns.length)];
             let adjectives = config.country_adjectives[Math.floor(Math.random() * config.country_adjectives.length)];
             let population = 200 + Math.floor(Math.random() * 1500);
-            let Name = adjectives + ' ' + noun;
+            let name = adjectives + ' ' + noun;
             let goverement;
 
             let xcord = Math.floor(Math.random() * config.Xsize);
             let ycord = Math.floor(Math.random() * config.Ysize);
-
+            let aggressiveness = 0
 
             if(Math.floor(Math.random()* 2) == 1){
                  goverement = 'Democracy';
+                 aggressiveness = Math.floor(Math.random()* 150) + 15
+
             }else{
                  goverement = 'Facism';
+                 aggressiveness = Math.floor(Math.random()* 300) + 150
+                 
             }
 
 
             if (map[xcord][ycord].index == -1){
-                map[xcord][ycord].country = Name;
+                map[xcord][ycord].country = name;
                 map[xcord][ycord].index = i;
 
+
                 countries[i] = {
-                    name: Name,
-                    goverement: goverement,
+                    Name: name,
+                    Goverement: goverement,
                     cord: [
                         xcord + ' ' + ycord
                     ],
-                    Population: population
+                    Population: population,
+                    Resources: CountryResources,
+                    Control: 500,
+                    Economy: 500,
+                    Size: 1,
+                    Infulence: 0,
+                    Happiness: 500,
+                    Aggressiveness: aggressiveness,
                 }
-                console.log('The country of ' + Name + ' that is under ' + goverement);
+                console.log('The country of ' + name + ' that is under ' + goverement);
                 console.log('At ' + xcord + ' ' + ycord);
                 console.log('________________________________________');
 
@@ -100,9 +123,9 @@ function WriteGrid(){
         for (let j = 0; j < map.length; j++) {
             const cell = document.createElement('div');
 
-            map[j][i].Resources.basic = Math.floor(Math.random() * -100);
+            map[j][i].Resources.basic = Math.floor(Math.random() * 100);
             if (config.debuging_mode){
-                cell.style.backgroundColor = `rgb(225, 225, ${map[j][i].Resources.basic + 225})`;
+                cell.style.backgroundColor = `rgb(225, 225, ${-map[j][i].Resources.basic + 225})`;
             }
 
             cell.style.fontSize = calculatedFontSize + 'px';
@@ -117,7 +140,7 @@ function WriteGrid(){
   
     for (let i = 0; i < countries.length; i++) {
       const line = document.createElement('div');
-      line.textContent = `${countries[i].name}: ${countries[i].Population}`;
+      line.textContent = `${countries[i].Name}: ${countries[i].Population}`;
       line.classList.add('line'); 
   
 
@@ -131,8 +154,22 @@ function UpdateScreen() {
 
     container.innerHTML = '';
     for (let i = 0; i < countries.length; i++) {
+        
+        
         const line = document.createElement('div');
-        line.textContent = `${countries[i].name}: ${countries[i].Population}`;
+
+        let resourcesKey = Object.keys(countries[i].Resources)
+
+        let _resources = ' '
+
+        for (let j = 0; j < resourcesKey.length; j++){
+
+            _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
+    
+        }
+
+
+        line.textContent = `${countries[i].Name}: Population (${countries[i].Population}) Resources: ${_resources} `;
         line.classList.add('line');
     
 
