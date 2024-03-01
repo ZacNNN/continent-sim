@@ -34,7 +34,7 @@
   const Ysize = 10;
   const mapZoom = 50; //50 is recomended
   const debuging_mode = false;
-  const SimulationSpeed = 2;  //seconds
+  const SimulationSpeed = 1;  //seconds
   
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, mapZoom, SimulationSpeed };

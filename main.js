@@ -4,6 +4,7 @@ import * as CountryActivity from './countryActivity.js';
 let countries = [
 
 ];
+const grid = document.body.querySelector('.grid');
 
 let map = {};
 let CountryResources = {
@@ -29,7 +30,7 @@ let map_tile = {
     index: -1
 }
 
-
+const calculatedFontSize = (config.mapZoom * 0.2085)
 
 function GenerateMap(){
     console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
@@ -111,8 +112,8 @@ async function generate_countries(){
 }
 
 function WriteGrid(){
-    const grid = document.querySelector('.grid');
-    const calculatedFontSize = (config.mapZoom * 0.2085)
+
+   
 
     grid.style.setProperty('--rows', map[0].length)
     grid.style.setProperty('--columns', map.length); 
@@ -146,6 +147,8 @@ function WriteGrid(){
 
       container.appendChild(line);
     };
+
+
 }
 function UpdateScreen() {
 
@@ -154,27 +157,39 @@ function UpdateScreen() {
 
     container.innerHTML = '';
     for (let i = 0; i < countries.length; i++) {
+        if (countries[i] != undefined){
         
+            const line = document.createElement('div');
+
+            let resourcesKey = Object.keys(countries[i].Resources)
+
+            let _resources = ' '
+
+            for (let j = 0; j < resourcesKey.length; j++){
+
+                _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
         
-        const line = document.createElement('div');
+            }
 
-        let resourcesKey = Object.keys(countries[i].Resources)
 
-        let _resources = ' '
+            line.textContent = `${countries[i].Name}: Population (${countries[i].Population}) Resources: ${_resources} `;
+            line.classList.add('line');
+        
 
-        for (let j = 0; j < resourcesKey.length; j++){
+            container.appendChild(line);
 
-            _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
-    
+
+
+
         }
+      
 
 
-        line.textContent = `${countries[i].Name}: Population (${countries[i].Population}) Resources: ${_resources} `;
-        line.classList.add('line');
+
+
+
+    }
     
-
-        container.appendChild(line);
-      };
 }
 
 
@@ -182,7 +197,11 @@ function doNothing(){
     //does nothing
 }
 
+function RemoveCountry(Index){
 
+
+    countries[Index] = undefined;
+}
 
 
 GenerateMap();
@@ -198,4 +217,4 @@ if (config.debuging_mode){
     console.log(countries);
 }
 
-export {WriteGrid, map, countries, UpdateScreen}
+export {WriteGrid, map, countries, UpdateScreen, RemoveCountry}

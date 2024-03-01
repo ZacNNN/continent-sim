@@ -22,11 +22,11 @@ function UpdatePopulation(){
 
             if(main.countries[i].Resources.Food == 0){
                 console.log(main.countries[i].Name + ' is Starving')
-                main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.5);
+                main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.2);
             }
 
             if (main.countries[i].Population <= 0){
-                main.countries[i] = undefined;
+                main.RemoveCountry(i);
             }
         }
     }
