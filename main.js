@@ -9,7 +9,7 @@ const grid = document.body.querySelector('.grid');
 let map = {};
 let CountryResources = {
     developer: 0,
-    Food: 0,
+    Food: 1,
     Materials: 0,
     AdvMaterials: 0,
 }
@@ -113,40 +113,25 @@ async function generate_countries(){
 
 function WriteGrid(){
 
-   
 
-    grid.style.setProperty('--rows', map[0].length)
-    grid.style.setProperty('--columns', map.length); 
-    grid.style.setProperty('--Width', (map[0].length * config.mapZoom) + 'px');
-    grid.style.setProperty('--Height', (map.length * config.mapZoom) + 'px');
 
-    for (let i = 0; i < map[0].length; i++) {
-        for (let j = 0; j < map.length; j++) {
-            const cell = document.createElement('div');
 
-            map[j][i].Resources.basic = Math.floor(Math.random() * 100);
-            if (config.debuging_mode){
-                cell.style.backgroundColor = `rgb(225, 225, ${-map[j][i].Resources.basic + 225})`;
-            }
+    var gridContainer = document.getElementById('grid-container');
+    gridContainer.style.setProperty('--Width', ((map[0].length * config.mapZoom)) + 'px');
+    gridContainer.style.setProperty('--Height', ((map.length * config.mapZoom)) + 'px');
 
-            cell.style.fontSize = calculatedFontSize + 'px';
-            cell.classList.add('cell');
-            cell.textContent = map[j][i].country;
-            grid.appendChild(cell);
+
+
+
+    for (let i = 0; i < map[0].length; i++){
+        for (let j = 0; j < map.length; j++){
+            const grid = document.createElement('div');
+            grid.className = 'grid'
+            grid.id = `grid-${i}${j}`
+
+            gridContainer.appendChild(grid);
         }
     }
-    const container = document.body.querySelector('.info-text');
-
-    container.innerHTML = '';
-  
-    for (let i = 0; i < countries.length; i++) {
-      const line = document.createElement('div');
-      line.textContent = `${countries[i].Name}: ${countries[i].Population}`;
-      line.classList.add('line'); 
-  
-
-      container.appendChild(line);
-    };
 
 
 }

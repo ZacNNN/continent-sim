@@ -17,12 +17,12 @@ function UpdatePopulation(){
             const populationChange = (Math.random()* 0.008) + 0.998
 
             main.countries[i].Population = Math.floor(main.countries[i].Population * populationChange);
-            console.log('The country of ' + main.countries[i].name + ' is now at ' + main.countries[i].Population + ' people' );
+            console.log('The country of ' + main.countries[i].Name + ' is now at ' + main.countries[i].Population + ' people' );
             console.log('________________________________________');  
 
             if(main.countries[i].Resources.Food == 0){
                 console.log(main.countries[i].Name + ' is Starving')
-                main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.2);
+                main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.8);
             }
 
             if (main.countries[i].Population <= 0){
