@@ -30,8 +30,8 @@
 
   const country_count = 0;
 
-  const Xsize =13;
-  const Ysize = 13;
+  const Xsize =4;
+  const Ysize = 2;
   const mapZoom = 10; //50 is recomended
   const debuging_mode = false;
   const SimulationSpeed = 1;  //seconds

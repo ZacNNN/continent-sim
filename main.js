@@ -116,9 +116,10 @@ function WriteGrid(){
 
 
 
-    var gridContainer = document.getElementById('grid-container');
-    gridContainer.style.setProperty('--Width', ((map[0].length * config.mapZoom)) + 'px');
-    gridContainer.style.setProperty('--Height', ((map.length * config.mapZoom)) + 'px');
+    var gridContainer = document.body.querySelector('.grid-container');
+    //gridContainer.style.setProperty('--Width', ((map[0].length * config.mapZoom)) + 'px');
+    //gridContainer.style.setProperty('--Height', ((map.length * config.mapZoom)) + 'px');
+
 
 
 
@@ -127,7 +128,7 @@ function WriteGrid(){
         for (let j = 0; j < map.length; j++){
             const grid = document.createElement('div');
             grid.className = 'grid'
-            grid.id = `grid-${i}${j}`
+            grid.id = `grid-${j}-${i}`
 
             gridContainer.appendChild(grid);
         }
