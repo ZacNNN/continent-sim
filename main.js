@@ -9,7 +9,7 @@ const grid = document.body.querySelector('.grid');
 let map = {};
 let CountryResources = {
     developer: 0,
-    Food: 1,
+    Food: 5000,
     Materials: 0,
     AdvMaterials: 0,
 }
@@ -142,15 +142,11 @@ function doNothing(){
     //does nothing
 }
 
-function RemoveCountry(Index){
 
-
-    countries[Index] = undefined;
-}
 
 
 GenerateMap();
-CountryActivity.generate_countries();
+await CountryActivity.generate_countries();
 
 doNothing();
 CountryActivity.BeginActivity();
@@ -163,4 +159,4 @@ if (config.debuging_mode){
     console.log(countries);
 }
 
-export {WriteGrid, map, countries, UpdateScreen, RemoveCountry, CountryResources}
+export {WriteGrid, map, countries, UpdateScreen, CountryResources}

@@ -33,11 +33,11 @@
   const Xsize =50;
   const Ysize = 50;
   const mapZoom = 5; //10 is recomended
-  const debuging_mode = false;
-  const SimulationSpeed = 2;  //seconds
+  const debuging_mode = true;
+  const SimulationSpeed = 0.1;  //seconds
   
 
   const mountainChance = 1;
-  const waterChance = 5;
+  const waterChance = 4;
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, mapZoom, SimulationSpeed, mountainChance, waterChance};

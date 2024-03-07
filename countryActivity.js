@@ -4,11 +4,13 @@ import * as config from "./config.js";
 
 function Update() {
     UpdatePopulation();
-    main.UpdateScreen()
+    CivilActivity();
+    main.UpdateScreen();
+
 }
 
 
-function generate_countries(){
+async function generate_countries(){
     if (config.country_count <= (main.map.length * main.map[0].length)){
         for (let i = 0; i < config.country_count; i++) {
            
@@ -45,7 +47,7 @@ function generate_countries(){
                             xcord + ' ' + ycord
                         ],
                         Population: population,
-                        Resources: main.CountryResources,
+                        Resources:  {...main.CountryResources},
                         Control: 500,
                         Economy: 500,
                         Size: 1,
@@ -83,7 +85,7 @@ function UpdatePopulation(){
             console.log('________________________________________');  
 
             if(main.countries[i].Resources.Food == 0){
-                console.log(main.countries[i].Name + ' is Starving')
+
                 main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.8);
             }
 
@@ -95,8 +97,21 @@ function UpdatePopulation(){
 
 }
 
-function RemoveCountry(index){
+function CivilActivity(){
+    for (let i = 0; i < main.countries.length; i++){
+        let foodChange = Math.floor(main.countries[i].Resources.Food - (main.countries[i].Population * 0.1));
+        if (foodChange <= 0){
+            foodChange = 0;
+        }
 
+        main.countries[i].Resources.Food = foodChange;
+
+
+    }
+}
+
+function RemoveCountry(index){
+    main.countries[index] = undefined;
 }
 
 function BeginActivity(){
