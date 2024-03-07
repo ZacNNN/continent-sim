@@ -38,78 +38,22 @@ function GenerateMap(){
     map = Array(config.Xsize)
     .fill()
     .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
-    
-
-}
-
-async function generate_countries(){
-    if (config.country_count <= (map.length * map[0].length)){
-        for (let i = 0; i < config.country_count; i++) {
-           
-           
-            let noun = config.country_nouns[Math.floor(Math.random() * config.country_nouns.length)];
-            let adjectives = config.country_adjectives[Math.floor(Math.random() * config.country_adjectives.length)];
-            let population = 200 + Math.floor(Math.random() * 1500);
-            let name = adjectives + ' ' + noun;
-            let goverement;
-
-            let xcord = Math.floor(Math.random() * config.Xsize);
-            let ycord = Math.floor(Math.random() * config.Ysize);
-            let aggressiveness = 0
-
-            if(Math.floor(Math.random()* 2) == 1){
-                 goverement = 'Democracy';
-                 aggressiveness = Math.floor(Math.random()* 150) + 15
-
+    for (let i = 0; i < map[0].length; i++){
+        for (let j = 0; j < map.length; j++){
+            if (Math.floor(Math.random()*100) <= config.waterChance){
+                map[i][j].Terrain = 'water';
+            }else if (Math.floor(Math.random()*100) <= config.mountainChance){
+                map[i][j].Terrain = 'mountain';
             }else{
-                 goverement = 'Facism';
-                 aggressiveness = Math.floor(Math.random()* 300) + 150
-                 
+                map[i][j].Terrain = 'grass';
             }
-
-
-            if (map[xcord][ycord].index == -1){
-                map[xcord][ycord].country = name;
-                map[xcord][ycord].index = i;
-
-
-                countries[i] = {
-                    Name: name,
-                    Goverement: goverement,
-                    cord: [
-                        xcord + ' ' + ycord
-                    ],
-                    Population: population,
-                    Resources: CountryResources,
-                    Control: 500,
-                    Economy: 500,
-                    Size: 1,
-                    Infulence: 0,
-                    Happiness: 500,
-                    Aggressiveness: aggressiveness,
-                }
-                console.log('The country of ' + name + ' that is under ' + goverement);
-                console.log('At ' + xcord + ' ' + ycord);
-                console.log('________________________________________');
-
-            }else{
-                i -= 1;
-
-            }
-
-            
-
 
         }
-        console.log('Finished Writing Countries');
-
-    }else{
-        
-        console.log('WARNING! Cant fit countries into map: Please decrease country count or increase map size')
     }
-  
 
 }
+
+
 
 function WriteGrid(){
 
@@ -117,9 +61,14 @@ function WriteGrid(){
 
 
     var gridContainer = document.body.querySelector('.grid-container');
-    //gridContainer.style.setProperty('--Width', ((map[0].length * config.mapZoom)) + 'px');
-    //gridContainer.style.setProperty('--Height', ((map.length * config.mapZoom)) + 'px');
 
+
+    gridContainer.style.setProperty('--X', map[0].length);
+    gridContainer.style.setProperty('--Y', map.length);
+    gridContainer.style.setProperty('--Xsize', `${config.Xsize * 12.8 * config.mapZoom}px`);
+    gridContainer.style.setProperty('--Ysize', `${config.Ysize * 12.8 * config.mapZoom}px`);
+    gridContainer.style.setProperty('--XsizeImg', `${12.8 * config.mapZoom}px`);
+    gridContainer.style.setProperty('--YsizeImg', `${12.8 * config.mapZoom}px`);
 
 
 
@@ -127,8 +76,18 @@ function WriteGrid(){
     for (let i = 0; i < map[0].length; i++){
         for (let j = 0; j < map.length; j++){
             const grid = document.createElement('div');
+
             grid.className = 'grid'
             grid.id = `grid-${j}-${i}`
+
+            grid.textContent = (map[i][j].country)
+            grid.style.fontSize = `${3*config.mapZoom}px`
+
+
+            grid.style.backgroundImage = `url('./img/${map[i][j].Terrain}.png')`;
+
+
+
 
             gridContainer.appendChild(grid);
         }
@@ -191,7 +150,8 @@ function RemoveCountry(Index){
 
 
 GenerateMap();
-await generate_countries();
+CountryActivity.generate_countries();
+
 doNothing();
 CountryActivity.BeginActivity();
 
@@ -203,4 +163,4 @@ if (config.debuging_mode){
     console.log(countries);
 }
 
-export {WriteGrid, map, countries, UpdateScreen, RemoveCountry}
+export {WriteGrid, map, countries, UpdateScreen, RemoveCountry, CountryResources}

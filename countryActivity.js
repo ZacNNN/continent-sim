@@ -8,6 +8,68 @@ function Update() {
 }
 
 
+function generate_countries(){
+    if (config.country_count <= (main.map.length * main.map[0].length)){
+        for (let i = 0; i < config.country_count; i++) {
+           
+           
+            let noun = config.country_nouns[Math.floor(Math.random() * config.country_nouns.length)];
+            let adjectives = config.country_adjectives[Math.floor(Math.random() * config.country_adjectives.length)];
+            let population = 200 + Math.floor(Math.random() * 1500);
+            let name = adjectives + ' ' + noun;
+            let goverement;
+
+            let xcord = Math.floor(Math.random() * config.Xsize);
+            let ycord = Math.floor(Math.random() * config.Ysize);
+            let aggressiveness = 0
+
+            if(Math.floor(Math.random()* 2) == 1){
+                 goverement = 'Democracy';
+                 aggressiveness = Math.floor(Math.random()* 150) + 15
+
+            }else{
+                 goverement = 'Facism';
+                 aggressiveness = Math.floor(Math.random()* 300) + 150
+                 
+            }
+           if (main.map[xcord][ycord].Terrain != 'water'){
+                if (main.map[xcord][ycord].index == -1){
+                    main.map[xcord][ycord].country = name;
+                    main.map[xcord][ycord].index = i;
+
+                
+                    main.countries[i] = {
+                        Name: name,
+                        Goverement: goverement,
+                        cord: [
+                            xcord + ' ' + ycord
+                        ],
+                        Population: population,
+                        Resources: main.CountryResources,
+                        Control: 500,
+                        Economy: 500,
+                        Size: 1,
+                        Infulence: 0,
+                        Happiness: 500,
+                        Aggressiveness: aggressiveness,
+                    }
+                    console.log('The country of ' + name + ' that is under ' + goverement);
+                    console.log('At ' + xcord + ' ' + ycord);
+                    console.log('________________________________________');
+                }
+                }else{
+                    i -= 1;
+
+                }
+        }
+        console.log('Finished Writing Countries');
+
+    }else{
+        
+        console.log('WARNING! Cant fit countries into map: Please decrease country count or increase map size')
+    }
+}
+
 function UpdatePopulation(){
     
     
@@ -26,10 +88,14 @@ function UpdatePopulation(){
             }
 
             if (main.countries[i].Population <= 0){
-                main.RemoveCountry(i);
+                RemoveCountry(i);
             }
         }
     }
+
+}
+
+function RemoveCountry(index){
 
 }
 
@@ -40,4 +106,4 @@ function BeginActivity(){
 
 }
 
-export {BeginActivity}
+export {BeginActivity, generate_countries}
