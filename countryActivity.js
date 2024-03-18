@@ -3,7 +3,9 @@ import * as config from "./config.js";
 
 
 function Update() {
+
     UpdatePopulation();
+
     CivilActivity();
     main.UpdateScreen();
 
@@ -23,7 +25,7 @@ async function generate_countries(){
 
             let xcord = Math.floor(Math.random() * config.Xsize);
             let ycord = Math.floor(Math.random() * config.Ysize);
-            let aggressiveness = 0
+            let aggressiveness = 0;
 
             if(Math.floor(Math.random()* 2) == 1){
                  goverement = 'Democracy';
@@ -99,25 +101,57 @@ function UpdatePopulation(){
 
 function CivilActivity(){
     for (let i = 0; i < main.countries.length; i++){
-        let foodChange = Math.floor(main.countries[i].Resources.Food - (main.countries[i].Population * 0.1));
-        if (foodChange <= 0){
-            foodChange = 0;
-        }
+       if (main.countries[i] != undefined){
+            let foodCons = Math.floor(main.countries[i].Population * 0.1);
 
-        main.countries[i].Resources.Food = foodChange;
+            const XYcord = main.countries[i].cord[0];
+            const XYcordArray = XYcord.split(" ")
+            let foodGrow = 0;
+           
+            if (main.map[XYcordArray[0]][XYcordArray[1]].Terrain ==  'grass'){
+                foodGrow = 25;
 
+            }
+
+
+
+            
+            const foodChange = ((main.countries[i].Resources.Food - foodCons) + foodGrow);
+            main.countries[i].Resources.Food = foodChange;
+            if (main.countries[i].Resources.Food <= 0){
+                main.countries[i].Resources.Food = 0;
+            }
+
+
+
+            
+       }
 
     }
 }
 
 function RemoveCountry(index){
+
+
+
+    const XYcord = main.countries[index].cord[0];
+    const XYcordArray = XYcord.split(" ")
+
+    main.map[XYcordArray[0]][XYcordArray[1]].index = -1;
+
+
+
+
     main.countries[index] = undefined;
+
+
+
 }
 
 function BeginActivity(){
 
+
     const update = setInterval(() => Update(), config.SimulationSpeed * 1000);
-    console.log(main.countries.length);
 
 }
 

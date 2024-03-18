@@ -28,16 +28,16 @@
       "Twin", "Noble", "Merry", "Sunny", "Cross", "Big", " ", " ", " "
     ]
 
-  const country_count = 20;
+  const country_count = 10;
 
-  const Xsize =50;
-  const Ysize = 50;
+  const Xsize =10;
+  const Ysize = 10;
   const mapZoom = 5; //10 is recomended
   const debuging_mode = true;
-  const SimulationSpeed = 0.1;  //seconds
+  const SimulationSpeed = 2;  //seconds
   
 
-  const mountainChance = 1;
-  const waterChance = 4;
+  const mountainChance = 0;
+  const waterChance = -1;
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, mapZoom, SimulationSpeed, mountainChance, waterChance};
