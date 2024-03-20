@@ -80,11 +80,13 @@ function UpdatePopulation(){
     
     for (let i = 0; i < main.countries.length; i++) {
         if(main.countries[i] != undefined){
-            const populationChange = (Math.random()* 0.008) + 0.998
+            const populationChange = (Math.random()* 0.02) + 1
 
             main.countries[i].Population = Math.floor(main.countries[i].Population * populationChange);
-            console.log('The country of ' + main.countries[i].Name + ' is now at ' + main.countries[i].Population + ' people' );
-            console.log('________________________________________');  
+            if (config.debuging_mode){
+                console.log('The country of ' + main.countries[i].Name + ' is now at ' + main.countries[i].Population + ' people' );
+            }
+
 
             if(main.countries[i].Resources.Food == 0){
 
@@ -108,10 +110,12 @@ function CivilActivity(){
             const XYcordArray = XYcord.split(" ")
             let foodGrow = 0;
            
-            if (main.map[XYcordArray[0]][XYcordArray[1]].Terrain ==  'grass'){
-                foodGrow = 25;
 
-            }
+            const Terrain = main.map[XYcordArray[0]][XYcordArray[1]].Terrain;
+
+            foodGrow = config.foodProduce[Terrain];
+
+
 
 
 

@@ -8,14 +8,14 @@ const grid = document.body.querySelector('.grid');
 
 let map = {};
 let CountryResources = {
-    developer: 0,
-    Food: 50,
+
+    Food: 500,
     Materials: 0,
     AdvMaterials: 0,
 }
 
 let MapResources = {
-        developer: 0,
+
         BasicOre: 0,
         AdvancedOre: 0,
         PlantMat: 0,
@@ -40,12 +40,14 @@ function GenerateMap(){
     .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
     for (let i = 0; i < map[0].length; i++){
         for (let j = 0; j < map.length; j++){
-            if (Math.floor(Math.random()*100) < config.waterChance){
+            if (Math.floor(Math.random()*100) < config.TerrainChance.water){
                 map[i][j].Terrain = 'water';
-            }else if (Math.floor(Math.random()*100) < config.mountainChance){
+            }else if (Math.floor(Math.random()*100) < config.TerrainChance.moutain){
                 map[i][j].Terrain = 'mountain';
+            }else if (Math.floor(Math.random()*100) < config.TerrainChance.snow){
+                map[i][j].Terrain = 'snow';
             }else{
-                map[i][j].Terrain = 'grass';
+                map[i][j].Terrain = 'field';
             }
 
         }
