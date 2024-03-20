@@ -32,8 +32,8 @@
 
 
 //map 
-  const Xsize =50;
-  const Ysize = 50;
+  const Xsize =10;
+  const Ysize = 10;
   const mapZoom = 5;
   const TerrainChance = {
     moutain: 1,
@@ -60,7 +60,7 @@ const foodProduce = {
 
 
 //other 
-const debuging_mode = false;
+const debuging_mode = true;
 
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, SimulationSpeed, TerrainChance, foodProduce, mapZoom};

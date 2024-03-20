@@ -1,12 +1,16 @@
 import * as config from './config.js';
 import * as CountryActivity from './countryActivity.js';
+import * as mapJS from './map.js';
+
+
+
 
 let countries = [
 
 ];
 const grid = document.body.querySelector('.grid');
 
-let map = {};
+
 let CountryResources = {
 
     Food: 500,
@@ -14,53 +18,17 @@ let CountryResources = {
     AdvMaterials: 0,
 }
 
-let MapResources = {
 
-        BasicOre: 0,
-        AdvancedOre: 0,
-        PlantMat: 0,
-        LiveStock: 0,
-    
 
-}
-let map_tile = {
-    country: ' ',
-    Terrain: ' ',
-    Resources: MapResources,
-    index: -1
-}
 
 const calculatedFontSize = (config.mapZoom * 0.2085)
 
-function GenerateMap(){
-    console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
 
-    map = Array(config.Xsize)
-    .fill()
-    .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
-    for (let i = 0; i < map[0].length; i++){
-        for (let j = 0; j < map.length; j++){
-            if (Math.floor(Math.random()*100) < config.TerrainChance.water){
-                map[i][j].Terrain = 'water';
-            }else if (Math.floor(Math.random()*100) < config.TerrainChance.moutain){
-                map[i][j].Terrain = 'mountain';
-            }else if (Math.floor(Math.random()*100) < config.TerrainChance.snow){
-                map[i][j].Terrain = 'snow';
-            }else{
-                map[i][j].Terrain = 'field';
-            }
 
-        }
-    }
-
-}
 
 
 
 function WriteGrid(){
-
-
-
 
     var gridContainer = document.body.querySelector('.grid-container');
 
@@ -75,8 +43,8 @@ function WriteGrid(){
 
 
 
-    for (let i = 0; i < map[0].length; i++){
-        for (let j = 0; j < map.length; j++){
+    for (let i = 0; i < mapJS.map[0].length; i++){
+        for (let j = 0; j < mapJS.map.length; j++){
             const grid = document.createElement('div');
 
             grid.className = 'grid'
@@ -94,9 +62,17 @@ function WriteGrid(){
             gridContainer.appendChild(grid);
         }
     }
-
+    
+    if (config.debuging_mode){
+        console.log('Debuging is Active:');
+        console.log('2d');
+        console.log(mapJS.map);
+        console.log('country list');
+        console.log(countries);
+    }
 
 }
+
 function UpdateScreen() {
 
 
@@ -131,15 +107,15 @@ function UpdateScreen() {
 
     }
     
-    for (let i = 0; i < map[0].length; i++){
-        for (let j = 0; j < map.length; j++){
+    for (let i = 0; i < mapJS.map[0].length; i++){
+        for (let j = 0; j < mapJS.map.length; j++){
 
             let grid = document.getElementById(`grid-${i}-${j}`)
 
-            if (map[i][j].index == -1){
+            if (mapJS.map[i][j].index == -1){
                grid.textContent = '';
             }else{
-                grid.textContent = countries[map[i][j].index].Name;
+                grid.textContent = countries[mapJS.map[i][j].index].Name;
             }
 
         }
@@ -155,18 +131,9 @@ function doNothing(){
 
 
 
-GenerateMap();
-await CountryActivity.generate_countries();
-
 doNothing();
 CountryActivity.BeginActivity();
 
-if (config.debuging_mode){
-    console.log('Debuging is Active:');
-    console.log('2d');
-    console.log( map);
-    console.log('country list');
-    console.log(countries);
-}
 
-export {WriteGrid, map, countries, UpdateScreen, CountryResources}
+
+export {WriteGrid, countries, UpdateScreen}

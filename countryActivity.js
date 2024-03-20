@@ -1,6 +1,6 @@
 import * as main from "./main.js";
 import * as config from "./config.js";
-
+import * as mapJS from "./map.js";
 
 function Update() {
 
@@ -12,8 +12,9 @@ function Update() {
 }
 
 
-async function generate_countries(){
-    if (config.country_count <= (main.map.length * main.map[0].length)){
+function generate_countries(){
+    console.log('do stuff');
+    if (config.country_count <= (mapJS.map.length * mapJS.map[0].length)){
         for (let i = 0; i < config.country_count; i++) {
            
            
@@ -36,13 +37,13 @@ async function generate_countries(){
                  aggressiveness = Math.floor(Math.random()* 300) + 150
                  
             }
-           if (main.map[xcord][ycord].Terrain != 'water'){
-                if (main.map[xcord][ycord].index == -1){
-                    main.map[xcord][ycord].country = name;
-                    main.map[xcord][ycord].index = i;
+           if (mapJS.map[xcord][ycord].Terrain != 'water'){
+                if (mapJS.map[xcord][ycord].index == -1){
+                    mapJS.map[xcord][ycord].country = name;
+                    mapJS.map[xcord][ycord].index = i;
 
                 
-                    main.countries[i] = {
+                    mapJS.countries[i] = {
                         Name: name,
                         Goverement: goverement,
                         cord: [
@@ -67,11 +68,13 @@ async function generate_countries(){
                 }
         }
         console.log('Finished Writing Countries');
+        main.WriteGrid();
 
     }else{
         
         console.log('WARNING! Cant fit countries into map: Please decrease country count or increase map size')
     }
+
 }
 
 function UpdatePopulation(){
