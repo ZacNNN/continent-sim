@@ -3,8 +3,9 @@ import * as CountryActivity from './countryActivity.js';
 import * as config from "./config.js";
 
 
-let map = [0];
 
+
+let map = [];
 
 let MapResources = {
 
@@ -24,32 +25,28 @@ let map_tile = {
 }
 
 
-function setup(){
+function setup() {
 
     console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
-    if (1==2){
+    
     map = Array(config.Xsize)
     .fill()
     .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
     for (let i = 0; i < map[0].length; i++){
          for (let j = 0; j < map.length; j++){
-            if (Math.floor(Math.random()*100) < config.TerrainChance.water){
-                map[i][j].Terrain = 'water';
-            }else if (Math.floor(Math.random()*100) < config.TerrainChance.moutain){
-                    map[i][j].Terrain = 'mountain';
-            }else if (Math.floor(Math.random()*100) < config.TerrainChance.snow){
-                    map[i][j].Terrain = 'snow';
-              }else{
-                    map[i][j].Terrain = 'field';
-                }
-    
+            const noisePixel = noise(j * 0.01, i * 0.01) *225;
+            if (noisePixel <= 150){
+                map[j][i].Terrain = 'field'
+            }else{
+                map[j][i].Terrain = 'water'
             }
-        }
-    
 
+        }
     }
     CountryActivity.generate_countries();
-    console.log('calling function')
-}
 
-export {map}
+  }
+
+  export{map}
+
+  window.setup = setup;

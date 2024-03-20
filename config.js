@@ -50,7 +50,7 @@
   const SimulationSpeed = 1.2;  //seconds
   
 //country
-const country_count = 50;
+const country_count = 0;
 const foodProduce = {
   field: 25,
   forest: 15,
@@ -60,7 +60,7 @@ const foodProduce = {
 
 
 //other 
-const debuging_mode = true;
+const debuging_mode = false;
 
 
 export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, SimulationSpeed, TerrainChance, foodProduce, mapZoom};

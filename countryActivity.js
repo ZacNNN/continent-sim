@@ -37,13 +37,13 @@ function generate_countries(){
                  aggressiveness = Math.floor(Math.random()* 300) + 150
                  
             }
-           if (mapJS.map[xcord][ycord].Terrain != 'water'){
+
                 if (mapJS.map[xcord][ycord].index == -1){
                     mapJS.map[xcord][ycord].country = name;
-                    mapJS.map[xcord][ycord].index = i;
+                    mapJS.map[xcord][ycord].index = 1;
 
                 
-                    mapJS.countries[i] = {
+                    main.countries[i] = {
                         Name: name,
                         Goverement: goverement,
                         cord: [
@@ -61,7 +61,7 @@ function generate_countries(){
                     console.log('The country of ' + name + ' that is under ' + goverement);
                     console.log('At ' + xcord + ' ' + ycord);
                     console.log('________________________________________');
-                }
+            
                 }else{
                     i -= 1;
 
@@ -114,7 +114,7 @@ function CivilActivity(){
             let foodGrow = 0;
            
 
-            const Terrain = main.map[XYcordArray[0]][XYcordArray[1]].Terrain;
+            const Terrain = mapJS.map[XYcordArray[0]][XYcordArray[1]].Terrain;
 
             foodGrow = config.foodProduce[Terrain];
 

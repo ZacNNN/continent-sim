@@ -30,6 +30,7 @@ const calculatedFontSize = (config.mapZoom * 0.2085)
 
 function WriteGrid(){
 
+    const map = mapJS.map;
     var gridContainer = document.body.querySelector('.grid-container');
 
 
