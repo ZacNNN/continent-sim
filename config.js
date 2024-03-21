@@ -32,13 +32,16 @@
 
 
 //map 
-  const Xsize =10;
-  const Ysize = 10;
-  const mapZoom = 5;
+  const mapSeed =  Math.floor(Math.random()*99999);  //84380
+  const Xsize =128;
+  const Ysize = 128;
+  const mapZoom = 1;
+  const waterRoughness = 0.05;
+  const TerrainRoughness = 0.04;
+  const waterChance = 30;
   const TerrainChance = {
-    moutain: 1,
-    water: 5,
-    snow: 2,
+    mountain: 24,
+    snow: 32,
     forest: 0,
 
   }
@@ -47,15 +50,16 @@
 
 
 //simulation
-  const SimulationSpeed = 1.2;  //seconds
+  const SimulationSpeed = 2;  //seconds
   
 //country
-const country_count = 0;
+const country_count = 20;
 const foodProduce = {
   field: 25,
   forest: 15,
   snow: 5,
-  moutain: 25,
+  mountain: 0,
+  water: 0,
 }
 
 
@@ -63,4 +67,4 @@ const foodProduce = {
 const debuging_mode = false;
 
 
-export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, SimulationSpeed, TerrainChance, foodProduce, mapZoom};
+export {country_adjectives, country_nouns, country_count, Xsize, Ysize, debuging_mode, SimulationSpeed, TerrainChance, foodProduce, mapZoom, waterChance, waterRoughness,mapSeed, TerrainRoughness};

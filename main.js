@@ -3,7 +3,8 @@ import * as CountryActivity from './countryActivity.js';
 import * as mapJS from './map.js';
 
 
-
+let year = 200;
+let month = 1;
 
 let countries = [
 
@@ -76,10 +77,22 @@ function WriteGrid(){
 
 function UpdateScreen() {
 
-
+    const map = mapJS.map;
     const container = document.body.querySelector('.info-text');
+   
+    month += 1;
+    if(month>=13){
+        month = 1;
+        year += 1;
+    }
+
 
     container.innerHTML = '';
+
+    const yearline = document.createElement('div');
+
+    yearline.textContent = `Year: ${year} Month: ${month}`
+    container.appendChild(yearline);
     for (let i = 0; i < countries.length; i++) {
 
         
@@ -108,15 +121,15 @@ function UpdateScreen() {
 
     }
     
-    for (let i = 0; i < mapJS.map[0].length; i++){
-        for (let j = 0; j < mapJS.map.length; j++){
+    for (let i = 0; i < map[0].length; i++){
+        for (let j = 0; j < map.length; j++){
 
             let grid = document.getElementById(`grid-${i}-${j}`)
 
-            if (mapJS.map[i][j].index == -1){
+            if (map[i][j].index == -1){
                grid.textContent = '';
             }else{
-                grid.textContent = countries[mapJS.map[i][j].index].Name;
+                grid.textContent = countries[map[i][j].index].Name;
             }
 
         }
@@ -137,4 +150,4 @@ CountryActivity.BeginActivity();
 
 
 
-export {WriteGrid, countries, UpdateScreen}
+export {WriteGrid, countries, UpdateScreen, CountryResources}

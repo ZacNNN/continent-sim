@@ -13,7 +13,7 @@ function Update() {
 
 
 function generate_countries(){
-    console.log('do stuff');
+
     if (config.country_count <= (mapJS.map.length * mapJS.map[0].length)){
         for (let i = 0; i < config.country_count; i++) {
            
@@ -40,7 +40,7 @@ function generate_countries(){
 
                 if (mapJS.map[xcord][ycord].index == -1){
                     mapJS.map[xcord][ycord].country = name;
-                    mapJS.map[xcord][ycord].index = 1;
+                    mapJS.map[xcord][ycord].index = i;
 
                 
                     main.countries[i] = {
@@ -85,7 +85,7 @@ function UpdatePopulation(){
         if(main.countries[i] != undefined){
             const populationChange = (Math.random()* 0.02) + 1
 
-            main.countries[i].Population = Math.floor(main.countries[i].Population * populationChange);
+
             if (config.debuging_mode){
                 console.log('The country of ' + main.countries[i].Name + ' is now at ' + main.countries[i].Population + ' people' );
             }
@@ -94,6 +94,9 @@ function UpdatePopulation(){
             if(main.countries[i].Resources.Food == 0){
 
                 main.countries[i].Population =  Math.floor(main.countries[i].Population * 0.8);
+            }else{
+
+                main.countries[i].Population = Math.floor((main.countries[i].Population * populationChange) + 1);
             }
 
             if (main.countries[i].Population <= 0){
@@ -113,7 +116,7 @@ function CivilActivity(){
             const XYcordArray = XYcord.split(" ")
             let foodGrow = 0;
            
-
+         
             const Terrain = mapJS.map[XYcordArray[0]][XYcordArray[1]].Terrain;
 
             foodGrow = config.foodProduce[Terrain];
@@ -144,7 +147,7 @@ function RemoveCountry(index){
     const XYcord = main.countries[index].cord[0];
     const XYcordArray = XYcord.split(" ")
 
-    main.map[XYcordArray[0]][XYcordArray[1]].index = -1;
+    mapJS.map[XYcordArray[0]][XYcordArray[1]].index = -1;
 
 
 

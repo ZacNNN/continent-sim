@@ -26,17 +26,29 @@ let map_tile = {
 
 
 function setup() {
+    console.log(`Seed: ${config.mapSeed}`)
 
-    console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles')
+    console.log('Drawing Map for ' + (config.Xsize * config.Ysize) + ' tiles');
     
     map = Array(config.Xsize)
     .fill()
     .map(() => Array(config.Ysize).fill().map(() => ({ ...map_tile })));
     for (let i = 0; i < map[0].length; i++){
          for (let j = 0; j < map.length; j++){
-            const noisePixel = noise(j * 0.01, i * 0.01) *225;
-            if (noisePixel <= 150){
+            noiseSeed(config.mapSeed + 5);
+            const TerrainNoise = noise(j * config.TerrainRoughness, i * config.TerrainRoughness) *225;
+            if (TerrainNoise <= (config.TerrainChance.mountain * 2.5)){
+                map[j][i].Terrain = 'mountain'
+            }else if(TerrainNoise <= (config.TerrainChance.snow * 2.5)){
+                map[j][i].Terrain = 'snow'
+            }else{
                 map[j][i].Terrain = 'field'
+            }
+            
+            noiseSeed(config.mapSeed);
+            const waterNoise = noise(j * config.waterRoughness, i * config.waterRoughness) *225;
+            if (waterNoise >= (config.waterChance * 2.5)){
+
             }else{
                 map[j][i].Terrain = 'water'
             }
