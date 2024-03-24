@@ -40,8 +40,8 @@
   const TerrainRoughness = 0.04;
   const waterChance = 30;
   const TerrainChance = {
-    mountain: 24,
-    snow: 32,
+    mountain: 0,
+    snow: 0,
     forest: 0,
 
   }

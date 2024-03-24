@@ -36,18 +36,20 @@ function setup() {
     for (let i = 0; i < map[0].length; i++){
          for (let j = 0; j < map.length; j++){
             noiseSeed(config.mapSeed + 5);
-            const TerrainNoise = noise(j * config.TerrainRoughness, i * config.TerrainRoughness) *225;
-            if (TerrainNoise <= (config.TerrainChance.mountain * 2.5)){
+            //const TempNoise = noise(j * config.TerrainRoughness, i * config.TerrainRoughness) *225;
+            //if (TempNoise <= (config.TerrainChance.mountain * 2.5)){
                 map[j][i].Terrain = 'mountain'
-            }else if(TerrainNoise <= (config.TerrainChance.snow * 2.5)){
+            //}else if(TempNoise <= (config.TerrainChance.snow * 2.5)){
                 map[j][i].Terrain = 'snow'
-            }else{
+            //}else{
                 map[j][i].Terrain = 'field'
-            }
+            //}
+            map[j][i].Terrain = 'field'
             
             noiseSeed(config.mapSeed);
-            const waterNoise = noise(j * config.waterRoughness, i * config.waterRoughness) *225;
-            if (waterNoise >= (config.waterChance * 2.5)){
+
+            const HeightMap = noise(j * config.waterRoughness, i * config.waterRoughness) *225;
+            if (HeightMap >= (config.waterChance * 2.5)){
 
             }else{
                 map[j][i].Terrain = 'water'
