@@ -5,6 +5,7 @@ import * as mapJS from './map.js';
 
 let year = 200;
 let month = 1;
+let menu = 'home';
 
 let countries = [
 
@@ -93,30 +94,39 @@ function UpdateScreen() {
 
     yearline.textContent = `Year: ${year} Month: ${month}`
     container.appendChild(yearline);
+    const button = document.createElement('button');
+
+    button.classList.add('info-button');
+
+
+
+    container.appendChild(button)
     for (let i = 0; i < countries.length; i++) {
 
-        
-        if (countries[i] != undefined){
-        
-            const line = document.createElement('div');
+        if (menu=='country_list'){
+            if (countries[i] != undefined){
+            
+                const line = document.createElement('div');
 
-            let resourcesKey = Object.keys(countries[i].Resources)
+                let resourcesKey = Object.keys(countries[i].Resources)
 
-            let _resources = ' '
+                let _resources = ' '
 
-            for (let j = 0; j < resourcesKey.length; j++){
+                for (let j = 0; j < resourcesKey.length; j++){
 
-                _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
-        
+                    _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
+            
+                }
+
+
+                line.textContent = `${countries[i].Name}: Population ${countries[i].Population}`;
+                line.classList.add('line');
+            
+            container.appendChild(line);
             }
-
-
-            line.textContent = `${countries[i].Name}: Population (${countries[i].Population}) Resources: ${_resources} `;
-            line.classList.add('line');
-        
-        container.appendChild(line);
+        } else{
+            
         }
-
     
 
     }

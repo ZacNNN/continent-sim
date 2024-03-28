@@ -33,9 +33,9 @@
 
 //map 
   const mapSeed =  Math.floor(Math.random()*99999);  //84380
-  const Xsize =128;
-  const Ysize = 128;
-  const mapZoom = 1;
+  const Xsize =30;
+  const Ysize = 30;
+  const mapZoom = 3;
   const waterRoughness = 0.05;
   const TerrainRoughness = 0.04;
   const waterChance = 30;

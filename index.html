@@ -25,23 +25,24 @@
         background-size:100%, 100%;
         font-size: 100px;
       }
-      .info-text-container{
-        position: fixed;
-        top: 20px; /* Adjust the top position as needed */
-        left: 20px;
-        z-index: 999;
-        color: rgb(115, 115, 115);
-        width: 15px;
-        height: 15px;
+ 
+      .info-button{
+        width: 30%;
+        height: 30%;
       }
       .info-text {
-
-
+        position: fixed;
+        top: 20px; 
+        left: 20px;
+        background-color: rgb(204, 204, 204);
         z-index: 999;
-        left: 0px;
+        width: 30%;
+        height: 30%;
+        font-family: Lucida Console;
         font-size: 16px; 
-        color: #ffffff; 
-        margin-top: 30px; 
+        color: #000000; 
+        text-indent: 10px;
+
       }
       .line {
         margin-bottom: 15px; 
@@ -56,10 +57,14 @@
 </head>
 
 <body style="background-color:rgb(38, 38, 38);">
-<div class=".info-text-container"></div>
-<div class="grid-container"></div>
 
 <div class="info-text">
+  <button style ="info-button"></button>
+</div>
+
+<div class="grid-container"></div>
+
+
 
 
 <script type = "module" src="./map.js"  defer></script>
