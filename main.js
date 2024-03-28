@@ -2,17 +2,22 @@ import * as config from './config.js';
 import * as CountryActivity from './countryActivity.js';
 import * as mapJS from './map.js';
 
-
+//world clock vars
 let year = 200;
 let month = 1;
-let menu = 'home';
 
+
+let menu = 'country_list';
+
+//the array to hold all the countries
 let countries = [
 
 ];
-const grid = document.body.querySelector('.grid');
 
 
+
+
+//The starting resources for all the countries
 let CountryResources = {
 
     Food: 500,
@@ -23,19 +28,18 @@ let CountryResources = {
 
 
 
-const calculatedFontSize = (config.mapZoom * 0.2085)
 
 
 
 
 
-
+//To Draw the map and other menus onto the screen
 function WriteGrid(){
 
     const map = mapJS.map;
     var gridContainer = document.body.querySelector('.grid-container');
 
-
+    //setting the dynamic style properties
     gridContainer.style.setProperty('--X', map[0].length);
     gridContainer.style.setProperty('--Y', map.length);
     gridContainer.style.setProperty('--Xsize', `${config.Xsize * 12.8 * config.mapZoom}px`);
@@ -45,7 +49,7 @@ function WriteGrid(){
 
 
 
-
+    //creating the map
     for (let i = 0; i < mapJS.map[0].length; i++){
         for (let j = 0; j < mapJS.map.length; j++){
             const grid = document.createElement('div');
@@ -66,6 +70,8 @@ function WriteGrid(){
         }
     }
     
+
+    //useless debug stufff
     if (config.debuging_mode){
         console.log('Debuging is Active:');
         console.log('2d');
@@ -76,11 +82,15 @@ function WriteGrid(){
 
 }
 
+
+//refreshes the screen for update information
 function UpdateScreen() {
 
     const map = mapJS.map;
     const container = document.body.querySelector('.info-text');
    
+
+    //world clock
     month += 1;
     if(month>=13){
         month = 1;
@@ -96,27 +106,22 @@ function UpdateScreen() {
     container.appendChild(yearline);
     const button = document.createElement('button');
 
+
+    //button to eventually switch between menus
     button.classList.add('info-button');
 
 
-
+    //top left menu
     container.appendChild(button)
     for (let i = 0; i < countries.length; i++) {
 
         if (menu=='country_list'){
             if (countries[i] != undefined){
             
+                //the information for each country
                 const line = document.createElement('div');
 
-                let resourcesKey = Object.keys(countries[i].Resources)
 
-                let _resources = ' '
-
-                for (let j = 0; j < resourcesKey.length; j++){
-
-                    _resources = `${_resources} ${resourcesKey[j]}: ${countries[i].Resources[resourcesKey[j]]} | `;
-            
-                }
 
 
                 line.textContent = `${countries[i].Name}: Population ${countries[i].Population}`;
@@ -130,7 +135,7 @@ function UpdateScreen() {
     
 
     }
-    
+    //updates the names for the grid
     for (let i = 0; i < map[0].length; i++){
         for (let j = 0; j < map.length; j++){
 
@@ -149,15 +154,16 @@ function UpdateScreen() {
 
 
 function doNothing(){
-    //does nothing
+    //does nothing bahahaha
 }
 
 
 
 
 doNothing();
+//once script is loaded the country activity 
 CountryActivity.BeginActivity();
 
 
-
+//exports
 export {WriteGrid, countries, UpdateScreen, CountryResources}

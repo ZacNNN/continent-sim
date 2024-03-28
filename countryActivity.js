@@ -11,22 +11,24 @@ function Update() {
 
 }
 
-
+//generates the countruies
 function generate_countries(){
 
     if (config.country_count <= (mapJS.map.length * mapJS.map[0].length)){
         for (let i = 0; i < config.country_count; i++) {
            
-           
+           //picks random names from arrays in config.js, picks the random inital population and goverment type
             let noun = config.country_nouns[Math.floor(Math.random() * config.country_nouns.length)];
             let adjectives = config.country_adjectives[Math.floor(Math.random() * config.country_adjectives.length)];
             let population = 200 + Math.floor(Math.random() * 1500);
             let name = adjectives + ' ' + noun;
             let goverement;
+            let aggressiveness = 0;
 
+            //picks random spot on map 
             let xcord = Math.floor(Math.random() * config.Xsize);
             let ycord = Math.floor(Math.random() * config.Ysize);
-            let aggressiveness = 0;
+
 
             if(Math.floor(Math.random()* 2) == 1){
                  goverement = 'Democracy';
@@ -37,12 +39,12 @@ function generate_countries(){
                  aggressiveness = Math.floor(Math.random()* 300) + 150
                  
             }
-
+                //checks if spot is free
                 if (mapJS.map[xcord][ycord].index == -1){
                     mapJS.map[xcord][ycord].country = name;
                     mapJS.map[xcord][ycord].index = i;
 
-                
+                    //adds the coutry to the array
                     main.countries[i] = {
                         Name: name,
                         Goverement: goverement,
@@ -63,11 +65,13 @@ function generate_countries(){
                     console.log('________________________________________');
             
                 }else{
+                //if map spot taken retry
                     i -= 1;
 
                 }
         }
         console.log('Finished Writing Countries');
+        //moves onto writing the grid
         main.WriteGrid();
 
     }else{
